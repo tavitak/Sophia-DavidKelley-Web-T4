@@ -1,7 +1,7 @@
 /* Twin Cities Animal Rescue: interactivity and client-side data
    1. Volunteer role tracker on services.html (saved in localStorage)
    2. Interest form validation and role pre-fill on contact.html
-   3. Director message on index.html: the audio player controls the video so they start together
+   3. Director message on index.html: one button plays the video and the director's voice together
 */
 
 /* ---------- Data ---------- */
@@ -397,38 +397,44 @@ function initDirectorMessage() {
     return;
   }
 
-  // The audio player controls both files. Browsers always allow a direct click on
-  // the audio player to start sound, and always allow a muted video to play, so
-  // letting the audio lead keeps them starting together in every browser.
+  // One button controls both files. The video file has no sound and the director's
+  // voice is in the MP3, so the button starts both in the same click, which every
+  // browser allows. Without JavaScript, the original note and both players still show.
+  document.getElementById("media-note").hidden = true;
+  audio.hidden = true;
   video.controls = false;
   video.classList.add("is-linked");
-  video.setAttribute("aria-hidden", "true");
 
-  document.getElementById("media-note").textContent =
-    "Press play on the audio player below to hear our director's message. The video plays along with it.";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "media-button";
+  video.insertAdjacentElement("afterend", button);
 
-  audio.addEventListener("play", () => syncVideoToAudio(video, audio, true));
-  audio.addEventListener("pause", () => video.pause());
-  audio.addEventListener("ended", () => video.pause());
-  audio.addEventListener("seeked", () => syncVideoToAudio(video, audio, !audio.paused));
-
-  // Clicking the picture also starts or pauses the message.
-  video.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play().catch((error) => console.warn("The audio could not start:", error.name));
-    } else {
-      audio.pause();
-    }
+  button.addEventListener("click", () => toggleDirectorMessage(video, audio));
+  video.addEventListener("click", () => toggleDirectorMessage(video, audio));
+  audio.addEventListener("play", () => updateMediaButton(button, true));
+  audio.addEventListener("pause", () => updateMediaButton(button, false));
+  audio.addEventListener("ended", () => {
+    video.pause();
+    video.currentTime = 0;
+    audio.currentTime = 0;
   });
+  updateMediaButton(button, false);
 }
 
-function syncVideoToAudio(video, audio, shouldPlay) {
-  if (!Number.isNaN(video.duration)) {
-    video.currentTime = Math.min(audio.currentTime, video.duration);
-  }
-  if (shouldPlay) {
+function toggleDirectorMessage(video, audio) {
+  if (audio.paused) {
+    video.currentTime = Math.min(audio.currentTime, video.duration || 0);
+    audio.play().catch((error) => console.warn("The audio could not start:", error.name));
     video.play().catch((error) => console.warn("The video could not start:", error.name));
+  } else {
+    audio.pause();
+    video.pause();
   }
+}
+
+function updateMediaButton(button, isPlaying) {
+  button.textContent = isPlaying ? "Pause director's message" : "Play director's message";
 }
 
 /* ---------- Start ---------- */

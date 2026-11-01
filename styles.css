@@ -221,6 +221,10 @@ main section {
   cursor: pointer;
 }
 
+.media-button {
+  margin-top: 0.75rem;
+}
+
 .transcript {
   padding-left: 1rem;
   border-left: var(--stroke) solid var(--mint);
