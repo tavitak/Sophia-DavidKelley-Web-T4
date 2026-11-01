@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,600;1,400&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -50,12 +51,12 @@
 
     <section class="director-message">
       <h2>A Message from Our Director</h2>
-      <video controls muted width="640" height="338" preload="metadata">
+      <video id="director-video" controls muted width="640" height="338" preload="metadata">
         <source src="rescue-message_c.mp4" type="video/mp4">
         <p>Your browser does not support embedded video. The video shows a family sitting in the grass at a park, laughing and petting a brown and white puppy. You can <a href="rescue-message_c.mp4">download the video</a>.</p>
       </video>
-      <p>The video has no sound. Play the audio below to hear our director's message.</p>
-      <audio controls preload="metadata">
+      <p id="media-note">The video has no sound. Play the audio below to hear our director's message.</p>
+      <audio id="director-audio" controls preload="metadata">
         <source src="rescue-message_c.mp3" type="audio/mpeg">
         <p>Your browser does not support embedded audio. You can <a href="rescue-message_c.mp3">download the audio file</a> or read the transcript below.</p>
       </audio>

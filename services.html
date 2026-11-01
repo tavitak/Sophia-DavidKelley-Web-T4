@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,600;1,400&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -52,23 +53,32 @@
     <section>
       <h2>Volunteer Roles</h2>
       <div class="role-list">
-        <div class="role">
+        <div class="role" data-role-id="animal-care">
           <h3>Animal Care Volunteer</h3>
           <p>Feed animals, clean living areas, and walk dogs at our care center. Shifts are about two hours.</p>
         </div>
-        <div class="role">
+        <div class="role" data-role-id="cat-socializer">
           <h3>Cat Socializer</h3>
           <p>Spend quiet time with shy cats so they become comfortable with people and ready for adoption.</p>
         </div>
-        <div class="role">
+        <div class="role" data-role-id="adoption-event">
           <h3>Adoption Event Volunteer</h3>
           <p>Greet families, answer questions, and help animals stay calm at weekend adoption events.</p>
         </div>
-        <div class="role">
+        <div class="role" data-role-id="transport">
           <h3>Transport Volunteer</h3>
           <p>Drive animals to veterinary appointments and to foster homes. A valid driver's license is required.</p>
         </div>
       </div>
+      <aside class="interest-tracker" id="interest-tracker" aria-labelledby="tracker-heading" hidden>
+        <h3 id="tracker-heading">Your Volunteer Interests</h3>
+        <p id="tracker-status" aria-live="polite"></p>
+        <ul id="tracker-list"></ul>
+        <p class="tracker-actions">
+          <a href="contact.html" class="button-link" id="tracker-continue">Continue to the interest form</a>
+          <button type="button" class="button-secondary" id="tracker-clear">Clear my list</button>
+        </p>
+      </aside>
       <p>No experience is required for most roles, and we train every volunteer. <a href="contact.html">Tell us you are interested in volunteering</a>.</p>
     </section>
   </main>

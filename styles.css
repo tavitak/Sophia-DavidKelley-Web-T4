@@ -22,6 +22,12 @@
   --heading-font: "Poppins", "Segoe UI", Arial, sans-serif;
   --body-font: "Source Sans 3", "Segoe UI", Arial, sans-serif;
   --stroke: 6px;
+  --error: #B42318;
+}
+
+/* Elements hidden by JavaScript stay hidden even when a class sets display. */
+[hidden] {
+  display: none !important;
 }
 
 /* Base */
@@ -382,6 +388,117 @@ footer {
 
 footer p {
   margin: 0.25rem auto;
+}
+
+/* Touchstone 4: volunteer interest tracker (services.html) */
+
+.role-toggle {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--pine);
+  background-color: var(--white);
+  color: var(--pine);
+  font-size: 0.95rem;
+}
+
+.role-toggle[aria-pressed="true"] {
+  background-color: var(--pine);
+  color: var(--white);
+}
+
+.role-toggle[aria-pressed="true"]::before {
+  content: "\2713  ";
+}
+
+.role.is-selected {
+  border-top-color: var(--pine);
+}
+
+.interest-tracker {
+  margin: 2rem 0 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 2px solid var(--mint);
+  border-radius: 1rem;
+}
+
+.interest-tracker ul {
+  padding-left: 1.25rem;
+}
+
+.interest-tracker li {
+  margin-bottom: 0.4rem;
+}
+
+.tracker-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0;
+}
+
+.button-link {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px;
+  background-color: var(--pine);
+  color: var(--white);
+  font-family: var(--heading-font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.button-link:hover {
+  background-color: var(--mint);
+  color: var(--pine);
+}
+
+.button-secondary {
+  padding: 0.6rem 1.25rem;
+  border: 2px solid var(--pine);
+  background-color: var(--white);
+  color: var(--pine);
+  font-size: 0.95rem;
+}
+
+/* Touchstone 4: form feedback (contact.html) */
+
+.prefill-note {
+  padding: 0.75rem 1rem;
+  border-left: var(--stroke) solid var(--mint);
+}
+
+.field-error {
+  margin: 0.35rem 0 0;
+  color: var(--error);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.field-error::before {
+  content: "\26A0  ";
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.char-count {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+}
+
+.form-status {
+  max-width: 36rem;
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--pine);
+  border-radius: 1rem;
+  color: var(--pine);
+  font-weight: 600;
 }
 
 /* Larger screens: 48rem (768px) and wider */

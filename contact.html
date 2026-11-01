@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,600;1,400&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -32,7 +33,9 @@
         <h2>Volunteer or Foster Interest Form</h2>
         <p>Tell us how you would like to help. A member of our team will contact you within two business days. Fields marked required must be completed.</p>
 
-        <form action="#" method="post">
+        <p class="prefill-note" id="prefill-note" hidden></p>
+
+        <form action="#" method="post" id="interest-form">
           <fieldset>
             <legend>Your Contact Information</legend>
             <p>
@@ -58,6 +61,26 @@
             <p>
               <input type="radio" id="interest-adoption" name="interest" value="adoption">
               <label for="interest-adoption">Adoption information</label>
+            </p>
+          </fieldset>
+
+          <fieldset id="roles-fieldset">
+            <legend>Volunteer Roles (choose at least one if volunteering)</legend>
+            <p>
+              <input type="checkbox" id="role-animal-care" name="roles[]" value="animal-care">
+              <label for="role-animal-care">Animal Care Volunteer</label>
+            </p>
+            <p>
+              <input type="checkbox" id="role-cat-socializer" name="roles[]" value="cat-socializer">
+              <label for="role-cat-socializer">Cat Socializer</label>
+            </p>
+            <p>
+              <input type="checkbox" id="role-adoption-event" name="roles[]" value="adoption-event">
+              <label for="role-adoption-event">Adoption Event Volunteer</label>
+            </p>
+            <p>
+              <input type="checkbox" id="role-transport" name="roles[]" value="transport">
+              <label for="role-transport">Transport Volunteer</label>
             </p>
           </fieldset>
 
@@ -96,6 +119,7 @@
 
           <button type="submit">Send Interest Form</button>
         </form>
+        <div class="form-status" id="form-status" role="status" tabindex="-1" hidden></div>
       </section>
 
       <div class="contact-info">
