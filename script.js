@@ -1,7 +1,7 @@
 /* Twin Cities Animal Rescue: interactivity and client-side data
    1. Volunteer role tracker on services.html (saved in localStorage)
    2. Interest form validation and role pre-fill on contact.html
-   3. Director message on index.html: the audio plays along with the video
+   3. Director message on index.html: the audio player controls the video so they start together
 */
 
 /* ---------- Data ---------- */
@@ -397,19 +397,38 @@ function initDirectorMessage() {
     return;
   }
 
-  document.getElementById("media-note").textContent =
-    "The video file has no sound, so our director's voice plays from the audio player below when you play the video. You can also play the audio on its own.";
+  // The audio player controls both files. Browsers always allow a direct click on
+  // the audio player to start sound, and always allow a muted video to play, so
+  // letting the audio lead keeps them starting together in every browser.
+  video.controls = false;
+  video.classList.add("is-linked");
+  video.setAttribute("aria-hidden", "true");
 
-  video.addEventListener("play", () => {
-    audio.currentTime = video.currentTime;
-    audio.play().catch(() => {
-      // If the browser blocks playback, the visitor can still press play on the audio player.
-    });
+  document.getElementById("media-note").textContent =
+    "Press play on the audio player below to hear our director's message. The video plays along with it.";
+
+  audio.addEventListener("play", () => syncVideoToAudio(video, audio, true));
+  audio.addEventListener("pause", () => video.pause());
+  audio.addEventListener("ended", () => video.pause());
+  audio.addEventListener("seeked", () => syncVideoToAudio(video, audio, !audio.paused));
+
+  // Clicking the picture also starts or pauses the message.
+  video.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play().catch((error) => console.warn("The audio could not start:", error.name));
+    } else {
+      audio.pause();
+    }
   });
-  video.addEventListener("pause", () => audio.pause());
-  video.addEventListener("seeked", () => {
-    audio.currentTime = video.currentTime;
-  });
+}
+
+function syncVideoToAudio(video, audio, shouldPlay) {
+  if (!Number.isNaN(video.duration)) {
+    video.currentTime = Math.min(audio.currentTime, video.duration);
+  }
+  if (shouldPlay) {
+    video.play().catch((error) => console.warn("The video could not start:", error.name));
+  }
 }
 
 /* ---------- Start ---------- */

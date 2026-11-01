@@ -217,6 +217,10 @@ main section {
   margin-top: 0.75rem;
 }
 
+.director-message video.is-linked {
+  cursor: pointer;
+}
+
 .transcript {
   padding-left: 1rem;
   border-left: var(--stroke) solid var(--mint);
